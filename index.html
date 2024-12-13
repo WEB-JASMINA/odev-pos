@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Cat Facts</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+        background-color: #f9f9f9;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .fact {
+        margin-top: 20px;
+        font-size: 1.5em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Random Cat Facts</h1>
+    <p>Click the button to get a random fact about cats:</p>
+    <button onclick="getFact()">Get Fact</button>
+    <div class="fact" id="fact"></div>
+
+    <script>
+      async function getFact() {
+        const url = "https://catfact.ninja/fact"; // API для фактов о кошках
+
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          document.getElementById("fact").innerText = data.fact;
+        } catch (error) {
+          console.error("Error:", error);
+          document.getElementById("fact").innerText =
+            "Unable to fetch a fact. Please try again later.";
+        }
+      }
+    </script>
+  </body>
+</html>
